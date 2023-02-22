@@ -55,7 +55,7 @@ const Login = async (req, res) => {
                 process.env.PRIVATE_KEY,
                 { expiresIn: "2h" }
               );
-              res.status(200).json({ message: "Success", token: token });
+              res.status(200).json({ message: "Success", token:"Bearer "+ token });
             }
           });
         }

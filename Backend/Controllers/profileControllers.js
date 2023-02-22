@@ -7,7 +7,7 @@ const AddProfile = async (req, res) => {
     if (!isValid) {
       res.status(404).json(errors);
     } else {
-      // console.log(req.user)
+      
       ProfileModel.findOne({ user: req.user.id }).then(async (profile) => {
         if (!profile) {
           req.body.user = req.user.id;
@@ -48,11 +48,11 @@ const FindSingleProfile = async (req, res) => {
 
 const DeleteProfile = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({ error: "No such Profile" });
+    
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ error: "No such Profile or invalid profile" });
     }
-    const data = await ProfileModel.findOneAndRemove({ _id: id });
+    const data = await ProfileModel.findOneAndRemove({ _id: req.params.id });
     if (!data) {
       return res.status(400).json({ error: "No such Profile" });
     }

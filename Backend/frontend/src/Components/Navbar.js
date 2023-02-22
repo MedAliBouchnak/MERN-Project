@@ -1,7 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { Logout } from "../Redux/Actions/authActions";
 
 const Navbar = ({ user }) => {
+  const dispatch = useDispatch()
+  const LogoutHanlder = ()=>{
+     dispatch(Logout())
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -30,13 +36,41 @@ const Navbar = ({ user }) => {
             ) : (
               ""
             )}
+            <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="#">
+                  Home
+                </Link>
+              </li>
+              {(user.role === "ADMIN") ||(user.role === "USER") ? (
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="#">
+                  Blog
+                </Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
           <div className="d-flex">
             <div className="mx-4">
-              <span className="text-black-50">Bouchnak</span>
-              <Link className="btn btn-outline-primary" to="/Login">
-                Logout
+              
+              {
+               !user.isConnected ? (
+                <>
+                <Link className="btn btn-outline-primary" to="/login">
+                Login
               </Link>
+              <Link className="btn btn-outline-primary" to="/register">
+                Register
+              </Link>
+                </>
+               ): (<>
+               <span className="text-black-50">{user.name} </span>
+                <Link className="btn btn-outline-primary"  to="#" onClick={LogoutHanlder}>
+                Logout
+              </Link> </>
+               )
+             }
             </div>
           </div>
         </div>

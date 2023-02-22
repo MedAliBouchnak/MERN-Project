@@ -10,7 +10,7 @@ export default function authReducer(state = intialeState, action) {
     case SET_USER:
       return {
         ...state,
-        isConnected: isEmpty(action.payload),
+        isConnected: !isEmpty(action.payload),
         user: action.payload,
       };
 

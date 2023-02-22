@@ -1,6 +1,6 @@
 import React from "react";
-
-const Inputs = ({ name, label, type, icon, onChangeHundler }) => {
+import Classnames from "classnames";
+const Inputs = ({ name, label,value, type, icon, onChangeHandler, errors }) => {
   return (
     <div className=" mb-3">
       <label className="form-label">{label}</label>
@@ -10,7 +10,14 @@ const Inputs = ({ name, label, type, icon, onChangeHundler }) => {
             <i className={icon}></i>
           </span>
         )}
-        <input type={type} name={name} className="form-control" onChange={onChangeHundler}/>
+        <input
+          type={type}
+          name={name}
+          value={value}
+          className={Classnames("form-control", { "is-invalid": errors })}
+          onChange={onChangeHandler}
+        />
+        {errors && <div className="invalid-feedback">{errors}</div>}
       </div>
     </div>
   );

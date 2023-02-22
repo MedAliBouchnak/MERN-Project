@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Inputs from "../Components/Inputs";
 import { Registration } from "../Redux/Actions/authActions";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [form, setForm] = useState({});
-  const dispatch= useDispatch()
-  const onChangeHundler = (e) => {
+  const dispatch = useDispatch();
+  const errors = useSelector((state) => state.errors);
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -15,7 +18,7 @@ const Register = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(Registration(form))
+    dispatch(Registration(form, navigate));
   };
   return (
     <div className="container p-4 mt-4">
@@ -35,28 +38,32 @@ const Register = () => {
                 label="Name"
                 type="text"
                 icon="fa-solid fa-user"
-                onChangeHundler={onChangeHundler}
+                onChangeHandler={onChangeHandler}
+                errors={errors.name}
               />
               <Inputs
                 name="email"
                 label="Email"
                 type="text"
                 icon="fa-solid fa-at"
-                onChangeHundler={onChangeHundler}
+                onChangeHandler={onChangeHandler}
+                errors={errors.email}
               />
               <Inputs
                 name="password"
                 label="Password"
                 type="password"
                 icon="fa-solid fa-key"
-                onChangeHundler={onChangeHundler}
+                onChangeHandler={onChangeHandler}
+                errors={errors.password}
               />
               <Inputs
                 name="confirm"
                 label="Confirm password"
                 type="password"
                 icon="fa-solid fa-key"
-                onChangeHundler={onChangeHundler}
+                onChangeHandler={onChangeHandler}
+                errors={errors.confirm}
               />
 
               <div className="d-flex justify-content-between">

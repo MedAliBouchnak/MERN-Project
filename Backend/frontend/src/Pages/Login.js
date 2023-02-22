@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Inputs from "../Components/Inputs";
+import { loginAction } from "../Redux/Actions/authActions";
 
 const Login = () => {
-  const [form,setForm]=useState({})
-  const onChangeHundler =(e)=>{
+  const dispatch = useDispatch();
+  const errors = useSelector((state) => state.errors);
+  const navigate = useNavigate();
+  const [form, setForm] = useState({});
+  const onChangeHandler = (e) => {
     setForm({
-      ...form,[e.target.name]:e.target.value
-    })
-  }
-  const onSubmit =(e)=>{
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const onSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-  }
+    dispatch(loginAction(form, navigate));
+  };
   return (
     <div className="container p-4 mt-4">
       <div className="row justify-content-evenly mt-4">
@@ -26,15 +32,28 @@ const Login = () => {
             style={{ backgroundColor: "white" }}
           >
             <form onSubmit={onSubmit}>
-              <Inputs name="email" label="Email" type="text" icon="fa-solid fa-at" onChangeHundler={onChangeHundler}/>
-              <Inputs name="password" label="Password" type="password" icon="fa-solid fa-key" onChangeHundler={onChangeHundler}/>
+              <Inputs
+                name="email"
+                label="Email"
+                type="text"
+                icon="fa-solid fa-at"
+                onChangeHandler={onChangeHandler}
+                errors={errors.email}
+              />
+              <Inputs
+                name="password"
+                label="Password"
+                type="password"
+                icon="fa-solid fa-key"
+                onChangeHandler={onChangeHandler}
+                errors={errors.password}
+              />
               <div className="d-flex justify-content-between">
                 <button type="submit" className="btn btn-outline-primary">
                   Save <i className="fa-solid fa-floppy-disk"></i>
                 </button>
                 <Link to="/Register">I don't have account</Link>
               </div>
-
             </form>
           </div>
         </div>
