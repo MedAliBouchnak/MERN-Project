@@ -12,7 +12,7 @@ const Navbar = ({ user }) => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          MERN Profile
+          MEMORIES
         </Link>
         <button
           className="navbar-toggler"
@@ -36,17 +36,19 @@ const Navbar = ({ user }) => {
             ) : (
               ""
             )}
-            <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="#">
-                  Home
+           
+              {(user.role === "ADMIN") ||(user.role === "USER") ? (<> 
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/profile">
+                  Profile
                 </Link>
               </li>
-              {(user.role === "ADMIN") ||(user.role === "USER") ? (
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="#">
+                <Link className="nav-link active" aria-current="page" to="/blog">
                   Blog
                 </Link>
               </li>
+              </>
             ) : (
               ""
             )}

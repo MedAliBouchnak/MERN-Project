@@ -57,22 +57,7 @@ export const getProfiles = () => (dispatch) => {
   );
  
 };
-// export const DeleteProfile = (id) => (dispatch) => {
-//   axios
-//     .delete(`/api/profiles/${id}`)
-//     .then((res) => {
-//       dispatch({
-//         type: DELETE_PROFILE,
-//         payload: id,
-//       });
-//     })
-//     .catch((err) =>
-//       dispatch({
-//         type: ERRORS,
-//         payload: err.response.data,
-//       })
-//     );
-// };
+
 export const DeleteProfile = (id)=>dispatch=>{
    if(window.confirm("are you sure to delete this user?")){
     axios

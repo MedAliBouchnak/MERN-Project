@@ -16,6 +16,9 @@ import store from "./Redux/store";
 import jwt_decode from "jwt-decode";
 import { useSelector } from "react-redux";
 import { setAuth } from "./util/setAuth";
+import Home from "./Pages/Home";
+import CreateBlog from "./Pages/CreateBlog";
+import UpdateBlog from "./Pages/UpdateBlog";
 //keep user connected
 if (window.localStorage.jwt) {
   const decode = jwt_decode(localStorage.jwt);
@@ -32,6 +35,8 @@ function App() {
   const user = {
     isConnected: auth.isConnected,
     role: auth.user.role,
+    name: auth.user.name,
+    id: auth.user.id,
   };
   return (
     <BrowserRouter>
@@ -39,14 +44,30 @@ function App() {
         <Navbar user={user} />
         <Routes>
           <Route
-            path="/"
+            path="/profile"
             element={
               <PrivateRouter user={user}>
                 <Profile />
               </PrivateRouter>
             }
           />
-
+          <Route
+            path="/blog"
+            element={
+              <PrivateRouter user={user}>
+                <CreateBlog />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/UpdateBlog/:id"
+            element={
+              <PrivateRouter user={user}>
+                <UpdateBlog />
+              </PrivateRouter>
+            }
+          />
+          <Route path="/" element={<Home user={user} />} />
           <Route
             path="/login"
             element={

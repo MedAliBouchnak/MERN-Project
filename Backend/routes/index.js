@@ -69,7 +69,7 @@ router.get("/Blog/:id", FindSingleBlog);
 router.post(
   "/Blog",
   passport.authenticate("jwt", {
-    session: false /*failureRedirect: "/login" */,
+    session: false ,failureRedirect: "/login",
   }),
   AddBlog
 );
@@ -77,7 +77,7 @@ router.post(
 router.patch(
   "/Blog/:id",
   passport.authenticate("jwt", {
-    session: false /*failureRedirect: "/login"*/,
+    session: false ,failureRedirect: "/login"
   }),
   UpdateBlog
 );
@@ -86,7 +86,7 @@ router.patch(
 router.delete(
   "/Blogs/:id",
   passport.authenticate("jwt", {
-    session: false /*failureRedirect: "/login" */,
+    session: false ,failureRedirect: "/login"
   }),
   inRole(ROLES.USER),
   DeleteBlogUser
@@ -96,7 +96,7 @@ router.delete(
 router.delete(
   "/Blogs/admin/:id",
   passport.authenticate("jwt", {
-    session: false /*failureRedirect: "/login" */,
+    session: false ,failureRedirect: "/login",
   }),
   inRole(ROLES.ADMIN),
   DeleteBlogAdmin

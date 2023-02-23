@@ -7,8 +7,18 @@ const PostsModel = new Schema({
     ref: "users",
     required: true,
   },
-  title: "String",
-  message: "String",
+  title: {
+    type: "String",
+    required: true,
+  },
+  message: {
+    type: "String",
+    required: true,
+  },
+  img: {
+    type: "String",
+    required: true,
+  },
   creator: "String",
   tags: ["String"],
   selectedFile: "String",

@@ -25,18 +25,13 @@ const UpdateBlog = async (req, res) => {
     if (!isValid) {
       res.status(404).json(errors);
     } else {
-      const blog = await PostsModel.findOne({
-        user: req.user.id,
-        _id: req.params.id,
-      });
+      const blog = await PostsModel.findById(req.params.id);
       if (!blog) {
-        return res
-          .status(400)
-          .json({ error: "No such blog found or not authorized to update" });
+        return res.status(400).json({ error: "No such blog found or not authorized to update" });
       }
 
-      const updatedBlog = await PostsModel.findOneAndUpdate(
-        { user: req.user.id, _id: req.params.id },
+      const updatedBlog = await PostsModel.findByIdAndUpdate(
+        req.params.id,
         req.body,
         { new: true }
       );
