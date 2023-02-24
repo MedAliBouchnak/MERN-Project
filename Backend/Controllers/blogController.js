@@ -27,9 +27,7 @@ const UpdateBlog = async (req, res) => {
     } else {
       const blog = await PostsModel.findById(req.params.id);
       if (!blog) {
-        return res
-          .status(400)
-          .json({ error: "No such blog found or not authorized to update" });
+        return res.status(400).json({ error: "No such blog found or not authorized to update" });
       }
 
       const updatedBlog = await PostsModel.findByIdAndUpdate(
@@ -47,9 +45,7 @@ const UpdateBlog = async (req, res) => {
 
 const FindAllBlogs = async (req, res) => {
   try {
-    const data = await PostsModel.find()
-      .sort({ createdAt: -1 })
-      .populate("user", ["name", "role"]);
+    const data = await PostsModel.find().sort({createdAt: -1}).populate('user',["name","role"]);
     res.status(200).json(data);
   } catch (error) {
     res.status(404).json(error.message);
@@ -58,13 +54,12 @@ const FindAllBlogs = async (req, res) => {
 
 const FindSingleBlog = async (req, res) => {
   try {
-    if (!mongoose.Types.ObjectId.isValid(req.params)) {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).json({ error: "No such blog" });
     }
-    const data = await PostsModel.findById(req.params).populate("user", [
-      "name",
-      "role",
-    ]);
+    const data = await PostsModel.findById(id).populate('user',["name","role"]);
     if (!data) {
       return res.status(404).json({ error: "No such Blog" });
     }
@@ -74,7 +69,7 @@ const FindSingleBlog = async (req, res) => {
   }
 };
 
-const DeleteBlog = async (req, res) => {
+const DeleteBlog= async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {

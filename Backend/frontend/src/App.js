@@ -19,6 +19,7 @@ import { setAuth } from "./util/setAuth";
 import Home from "./Pages/Home";
 import CreateBlog from "./Pages/CreateBlog";
 import UpdateBlog from "./Pages/UpdateBlog";
+import BlogContent from "./Pages/BlogContent";
 //keep user connected
 if (window.localStorage.jwt) {
   const decode = jwt_decode(localStorage.jwt);
@@ -67,6 +68,7 @@ function App() {
               </PrivateRouter>
             }
           />
+          <Route path="/blog/:id" element={<BlogContent />} />
           <Route path="/" element={<Home user={user} />} />
           <Route
             path="/login"
