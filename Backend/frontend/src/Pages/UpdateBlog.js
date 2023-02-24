@@ -42,7 +42,7 @@ const UpdateBlog = () => {
         role="alert"
         style={{ display: show ? "block" : "none" }}
       >
-        {message || "Blog added with success"}
+        {message}
       </div>
       <div className="row justify-content-evenly mt-4">
         <div className="col-lg-6 col-md-12 mt-4">

@@ -30,7 +30,7 @@ const AddProfile = async (req, res) => {
 
 const FindAllProfiles = async (req, res) => {
   try {
-    const data = await ProfileModel.find().populate('user',["name","email","role"]);
+    const data = await ProfileModel.find().populate('user',["name","email","role"]).sort({createdAt: -1});
     res.status(200).json(data);
   } catch (error) {
     res.status(404).json(error.message);

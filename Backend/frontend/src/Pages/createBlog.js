@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Inputs from "../Components/Inputs";
 import Classnames from "classnames";
-import { AddProfile, getProfile } from "../Redux/Actions/profileActions";
 import { AddBlog } from "../Redux/Actions/blogActions";
 const CreateBlog = () => {
   const [form, setForm] = useState({});
@@ -23,13 +22,6 @@ const CreateBlog = () => {
     e.preventDefault();
     dispatch(AddBlog(form, setMessage, setShow, navigate));
   };
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     await dispatch(getProfile());
-  //     setForm(profiles.profile);
-  //   };
-  //   fetchProfile();
-  // }, []);
 
   return (
     <div className="container p-4 mt-4">

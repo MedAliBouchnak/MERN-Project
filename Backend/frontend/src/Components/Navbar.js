@@ -9,7 +9,7 @@ const Navbar = ({ user }) => {
      dispatch(Logout())
   }
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-lg ">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           MEMORIES

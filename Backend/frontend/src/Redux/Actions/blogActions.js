@@ -1,11 +1,27 @@
 import axios from "axios";
-import { ERRORS, SET_BLOG, SET_BLOGS, UPDATE_BLOGS } from "../types";
+import {
+  DELETE_BLOGS,
+  ERRORS,
+  SET_BLOG,
+  SET_BLOGS,
+  UPDATE_BLOGS,
+} from "../types";
 
-export const AddBlog = (form) => (dispatch) => {
+export const AddBlog = (form, setMessage, setShow, navigate) => (dispatch) => {
   axios
     .post("/api/Blog", form)
     .then((res) => {
       console.log(res.data);
+      setShow(true);
+      setMessage("User added with success");
+      dispatch({
+        type: ERRORS,
+        payload: {},
+      });
+      setTimeout(() => {
+        setShow(false);
+        navigate("/");
+      }, 3000);
     })
     .catch((err) => {
       dispatch({
@@ -14,16 +30,25 @@ export const AddBlog = (form) => (dispatch) => {
       });
     });
 };
-export const UpdatingBlog =(form,id, setMessage, setShow, navigate) => async (dispatch) => {
+export const UpdatingBlog =
+  (form, id, setMessage, setShow, navigate) => async (dispatch) => {
     try {
       const res = await axios.patch(`/api/Blog/${id}`, form);
       dispatch({
         type: UPDATE_BLOGS,
-        payload:res.data, // Include the user ID in the payload
+        payload: res.data, // Include the user ID in the payload
+      });
+      dispatch({
+        type: ERRORS,
+        payload: {},
       });
       setMessage("Blog updated with success");
       setShow(true);
-      navigate('/');
+      setTimeout(() => {
+        setShow(false);
+        navigate("/");
+      }, 3000);
+      //
     } catch (err) {
       dispatch({
         type: ERRORS,
@@ -38,7 +63,7 @@ export const getBlog = (id) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: SET_BLOG,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch((err) =>
@@ -63,4 +88,22 @@ export const getBlogs = () => (dispatch) => {
         payload: err.response.data,
       })
     );
+};
+export const DeleteBlog = (id) => (dispatch) => {
+  if (window.confirm("Are you sure to delete this blog?")) {
+    axios
+      .delete(`/api/Blogs/${id}`)
+      .then((res) => {
+        dispatch({
+          type: DELETE_BLOGS,
+          payload: id,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: ERRORS,
+          payload: err.response.data,
+        });
+      });
+  }
 };

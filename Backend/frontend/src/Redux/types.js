@@ -6,5 +6,4 @@ export const DELETE_PROFILE = "DELETE_PROFILE";
 export const SET_BLOG = "SET_BLOG";
 export const SET_BLOGS = "SET_BLOGS";
 export const UPDATE_BLOGS = "UPDATE_BLOGS";
-export const ADMIN_DELETE_BLOGS = "ADMIN_DELETE_BLOGS";
-export const USER_DELETE_BLOGS = "USER_DELETE_BLOGS";
+export const DELETE_BLOGS = "DELETE_BLOGS";

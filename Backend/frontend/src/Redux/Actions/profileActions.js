@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ERRORS, SET_PROFILE, DELETE_PROFILE, SET_PROFILES } from "../types";
 export const AddProfile =
-  (form, setShow, setMessage, navigate) => (dispatch) => {
+  (form, setShow, setMessage) => (dispatch) => {
     axios
       .post("/api/profiles", form)
       .then((res) => {
@@ -23,7 +23,7 @@ export const AddProfile =
         });
       });
   };
-export const getProfile = () => (dispatch) => {
+export const getProfile = () => (dispatch) => {//need to 
   axios
     .get("/api/profile")
     .then((res) => {
@@ -59,7 +59,7 @@ export const getProfiles = () => (dispatch) => {
 };
 
 export const DeleteProfile = (id)=>dispatch=>{
-   if(window.confirm("are you sure to delete this user?")){
+   if(window.confirm("Are you sure to delete this user?")){
     axios
     .delete(`/api/profiles/${id}`)
     .then(res => {

@@ -20,8 +20,8 @@ const {
   AddBlog,
   FindAllBlogs,
   FindSingleBlog,
-  DeleteBlogUser,
-  DeleteBlogAdmin,
+
+  DeleteBlog,
   UpdateBlog,
   LikeBlog,
 } = require("../Controllers/blogController");
@@ -69,7 +69,8 @@ router.get("/Blog/:id", FindSingleBlog);
 router.post(
   "/Blog",
   passport.authenticate("jwt", {
-    session: false ,failureRedirect: "/login",
+    session: false,
+    failureRedirect: "/login",
   }),
   AddBlog
 );
@@ -77,7 +78,8 @@ router.post(
 router.patch(
   "/Blog/:id",
   passport.authenticate("jwt", {
-    session: false ,failureRedirect: "/login"
+    session: false,
+    failureRedirect: "/login",
   }),
   UpdateBlog
 );
@@ -86,20 +88,11 @@ router.patch(
 router.delete(
   "/Blogs/:id",
   passport.authenticate("jwt", {
-    session: false ,failureRedirect: "/login"
+    session: false,
+    failureRedirect: "/login",
   }),
-  inRole(ROLES.USER),
-  DeleteBlogUser
-);
 
-//Admin Delete any Post
-router.delete(
-  "/Blogs/admin/:id",
-  passport.authenticate("jwt", {
-    session: false ,failureRedirect: "/login",
-  }),
-  inRole(ROLES.ADMIN),
-  DeleteBlogAdmin
+  DeleteBlog
 );
 
 //Update post Likes

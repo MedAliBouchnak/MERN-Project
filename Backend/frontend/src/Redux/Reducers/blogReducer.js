@@ -1,4 +1,4 @@
-import { SET_BLOG, SET_BLOGS, UPDATE_BLOGS } from "../types";
+import { DELETE_BLOGS, SET_BLOG, SET_BLOGS, UPDATE_BLOGS } from "../types";
 
 const intitialState = {
   blogs: [],
@@ -9,18 +9,27 @@ export default function (state = intitialState, action) {
     case SET_BLOG:
       return {
         ...state,
-        blog: state.blogs.find(p =>p._id === action.payload._id ),
-      }; 
+        blog: state.blogs.find((p) => p._id === action.payload._id),
+      };
+
     case SET_BLOGS:
       return {
         ...state,
         blogs: action.payload,
       };
+
     case UPDATE_BLOGS:
       return {
         ...state,
-        blog: state.blogs.find(p =>p._id === action.payload._id ),
-      }
+        blog: state.blogs.find((p) => p._id === action.payload._id),
+      };
+
+    case DELETE_BLOGS:
+      return {
+        ...state,
+        blogs: state.blogs.filter((p) => p._id !== action.payload),
+      };
+      
     default:
       return state;
   }
