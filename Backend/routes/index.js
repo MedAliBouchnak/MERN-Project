@@ -1,4 +1,4 @@
-var express = require("express");
+const express = require("express");
 const mongoose = require("mongoose");
 
 const {
@@ -20,7 +20,7 @@ const {
   AddBlog,
   FindAllBlogs,
   FindSingleBlog,
-
+  FindAllBlogsByUserId,
   DeleteBlog,
   UpdateBlog,
   LikeBlog,
@@ -61,7 +61,15 @@ router.delete(
 /************************************Posts Routes**********************************************/
 // Get all blog
 router.get("/Blogs", FindAllBlogs);
-
+// Get all user blog
+router.get(
+  "/ProfileBlogs",
+  passport.authenticate("jwt", {
+    session: false,
+    failureRedirect: "/login",
+  }),
+  FindAllBlogsByUserId
+);
 //Get a single blog
 router.get("/Blog/:id", FindSingleBlog);
 
@@ -74,7 +82,7 @@ router.post(
   }),
   AddBlog
 );
-//Update a post
+//Update a blog
 router.patch(
   "/Blog/:id",
   passport.authenticate("jwt", {
@@ -84,7 +92,7 @@ router.patch(
   UpdateBlog
 );
 
-//Delete a Post for user
+//Delete a blog
 router.delete(
   "/Blogs/:id",
   passport.authenticate("jwt", {
@@ -95,7 +103,7 @@ router.delete(
   DeleteBlog
 );
 
-//Update post Likes
+//Update blog Likes
 router.patch(
   "/:id/likePost",
   passport.authenticate("jwt", { session: false }),

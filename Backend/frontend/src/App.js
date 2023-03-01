@@ -1,10 +1,10 @@
-import "./App.css";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Admin from "./Pages/Admin";
 import Profile from "./Pages/Profile";
-import Navbar from "./Components/Navbar";
+// import Navbar from "./Components/Navbar";
+import Navbar1 from "./Components/Navbar1";
 import NotFound from "./Pages/NotFound";
 import NoAccess from "./Pages/NoAccess";
 import PrivateRouter from "./Components/PrivateRouter";
@@ -20,6 +20,7 @@ import Home from "./Pages/Home";
 import CreateBlog from "./Pages/CreateBlog";
 import UpdateBlog from "./Pages/UpdateBlog";
 import BlogContent from "./Pages/BlogContent";
+import UserBlogs from "./Pages/UserBlogs";
 //keep user connected
 if (window.localStorage.jwt) {
   const decode = jwt_decode(localStorage.jwt);
@@ -42,7 +43,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="bg-light" style={{ height: "100vh" }}>
-        <Navbar user={user} />
+        {/* <Navbar user={user} /> */}
+        <Navbar1 user={user} />
         <Routes>
           <Route
             path="/profile"
@@ -65,6 +67,14 @@ function App() {
             element={
               <PrivateRouter user={user}>
                 <UpdateBlog />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/profileBlogs"
+            element={
+              <PrivateRouter user={user}>
+                <UserBlogs />
               </PrivateRouter>
             }
           />

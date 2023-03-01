@@ -42,6 +42,7 @@ function Admin() {
                 {profiles.profiles.map(
                   ({ _id, user, PhoneNum, City, Country, Bio }) => (
                     <RowDetails
+                      key={_id}
                       _id={_id}
                       user={user}
                       PhoneNum={PhoneNum}

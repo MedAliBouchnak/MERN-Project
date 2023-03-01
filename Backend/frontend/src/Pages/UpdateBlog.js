@@ -40,8 +40,7 @@ const UpdateBlog = () => {
       <div
         className="alert alert-success"
         role="alert"
-        style={{ display: show ? "block" : "none" }}
-      >
+        style={{ display: show ? "block" : "none" }}>
         {message}
       </div>
       <div className="row justify-content-evenly mt-4">

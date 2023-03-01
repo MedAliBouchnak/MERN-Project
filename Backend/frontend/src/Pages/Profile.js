@@ -10,19 +10,18 @@ const Profile = () => {
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.errors);
   const profiles = useSelector((state) => state.profiles);
-  const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value, 
     });
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(AddProfile(form, setMessage, setShow, navigate));
+    dispatch(AddProfile(form, setShow, navigate));
   };
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,8 +29,8 @@ const Profile = () => {
       setForm(profiles.profile);
     };
     fetchProfile();
-  }, []);
-  
+  }, [dispatch, profiles.profile]);
+
   return (
     <div className="container p-4 mt-4">
       <div
@@ -39,7 +38,7 @@ const Profile = () => {
         role="alert"
         style={{ display: show ? "block" : "none" }}
       >
-        {message || "User added with success"}
+        User added with success
       </div>
       <div className="row justify-content-evenly mt-4">
         <div className="col-lg-6 col-md-12 mt-4">
@@ -91,6 +90,15 @@ const Profile = () => {
                 onChangeHandler={onChangeHandler}
                 errors={errors.postalCode}
               />
+              <Inputs
+                name="image"
+                label="Profile Image"
+                type="text"
+                value={form && form.image ? form.image : ""}
+                onChangeHandler={onChangeHandler}
+                errors={errors.image}
+              />
+
               <div className=" mb-3">
                 <label className="form-label">Address</label>
                 <div className="input-group">

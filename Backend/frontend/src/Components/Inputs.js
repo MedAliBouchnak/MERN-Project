@@ -1,5 +1,6 @@
 import React from "react";
 import Classnames from "classnames";
+
 const Inputs = ({ name, label,value, type, icon, onChangeHandler, errors }) => {
   return (
     <div className=" mb-3">

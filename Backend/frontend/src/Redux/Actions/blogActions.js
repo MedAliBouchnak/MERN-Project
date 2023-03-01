@@ -3,7 +3,7 @@ import {
   DELETE_BLOGS,
   ERRORS,
   SET_BLOG,
-  SET_BLOGS,
+  SET_BLOGS,SET_USER_BLOGS,
   UPDATE_BLOGS,
 } from "../types";
 
@@ -13,7 +13,7 @@ export const AddBlog = (form, setMessage, setShow, navigate) => (dispatch) => {
     .then((res) => {
       console.log(res.data);
       setShow(true);
-      setMessage("User added with success");
+      setMessage("Blog added with success");
       dispatch({
         type: ERRORS,
         payload: {},
@@ -21,7 +21,7 @@ export const AddBlog = (form, setMessage, setShow, navigate) => (dispatch) => {
       setTimeout(() => {
         setShow(false);
         navigate("/");
-      }, 3000);
+      }, 2000);
     })
     .catch((err) => {
       dispatch({
@@ -73,6 +73,24 @@ export const getBlog = (id) => (dispatch) => {
       })
     );
 };
+export const getUserBlogs = () => (dispatch) => {
+  axios
+    .get("/api/ProfileBlogs")
+    .then((res) => {
+      dispatch({
+        type: SET_USER_BLOGS,
+        payload: res.data,
+      });
+    })
+    .catch((err) =>
+      dispatch({
+        type: ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+
 export const getBlogs = () => (dispatch) => {
   axios
     .get("/api/Blogs")

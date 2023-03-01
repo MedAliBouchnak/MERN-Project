@@ -1,53 +1,34 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { DeleteBlog } from "../Redux/Actions/blogActions";
+import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
-
-const Blog = ({ _id, userBlog, title, img, message }) => {
-  const auth = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = {
-    isConnected: auth.isConnected,
-    id: auth.user.id,
-    role: auth.user.role,
-  };
-  function getBlogHanlder(_id) {
-    navigate(`/UpdateBlog/${_id}`);
-    console.log(_id);
-  }
-  const DeleteHandler = (id) => {
-    dispatch(DeleteBlog(id));
-  };
-  const isAdmin =
-    user.isConnected && (user.id === userBlog._id || user.role === "ADMIN");
-  const isOwner = user.isConnected && user.id === userBlog._id;
-
+import moment from "moment";
+import "./StyleComp/blog.css";
+const Blog = ({ _id, userBlog, title, img, message, createdAt }) => {
+  const timeSinceCreation = moment(createdAt).fromNow();
   return (
     <div>
-      <div class="card" style={{ width: "18rem" }}>
-        <img src={img} className=" shadow-lg card-img-top" alt={title} />
-        <div className="card-body">
+     
+      <div className="post">
         <Link to={`/Blog/${_id}`}>
-  <h5 className="card-title">{title}</h5>
-</Link>
-          
+          <img className="postImg" src={img} alt={title} />
+        </Link>
+        <div className="postInfo">
+          <div className="postCats">
+            <span className="postCat">Auther:</span>
+            <span className="postCat">{userBlog.name}</span>
+            
+          </div>
+          <span className="postTitle">
+            <Link to={`/Blog/${_id}`} className="link">
+              {title}
+            </Link>
+          </span>
+          <hr />
+          <span className="postDate">{timeSinceCreation}</span>
         </div>
-
-        <div class="card-body">
-          {isOwner && (
-            <i className="fas fa-edit " onClick={() => getBlogHanlder(_id)}></i>
-          )}
-          {isAdmin && (
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => DeleteHandler(_id)}
-            >
-              Delete
-            </button>
-          )}
-        </div>
+        <p className="postDesc">{message}</p>
       </div>
     </div>
   );

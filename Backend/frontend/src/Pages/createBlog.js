@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Inputs from "../Components/Inputs";
 import Classnames from "classnames";
 import { AddBlog } from "../Redux/Actions/blogActions";
+
 const CreateBlog = () => {
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
@@ -24,13 +25,13 @@ const CreateBlog = () => {
   };
 
   return (
+    <div>
     <div className="container p-4 mt-4">
       <div
         className="alert alert-success"
         role="alert"
         style={{ display: show ? "block" : "none" }}
-      >
-        {message || "Blog added with success"}
+      > {message}
       </div>
       <div className="row justify-content-evenly mt-4">
         <div className="col-lg-6 col-md-12 mt-4">
@@ -42,6 +43,7 @@ const CreateBlog = () => {
             style={{ backgroundColor: "white" }}
           >
             <form onSubmit={onSubmit}>
+              
               <Inputs
                 name="title"
                 label="Title"
@@ -78,13 +80,16 @@ const CreateBlog = () => {
               </div>
               <div className="d-flex justify-content-between">
                 <button type="submit" className="btn btn-outline-primary">
-                  Post <i className="fa-sharp fa-solid fa-blog"></i>
+                  Publish <i className="fa-sharp fa-solid fa-blog"></i>
                 </button>
               </div>
             </form>
           </div>
         </div>
       </div>
+    </div>
+    
+    
     </div>
   );
 };

@@ -22,6 +22,7 @@ const ProfileModel = new Schema(
       type: "String",
       required: true,
     },
+    image: "String",
     Bio: "String",
     Address: "String",
   },
